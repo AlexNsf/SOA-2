@@ -1,0 +1,82 @@
+version: "3"
+
+networks:
+  SOA-2_default_additional:
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: rest.Dockerfile
+    restart: always
+    ports:
+      - "8000:8000"
+    networks:
+      - SOA-2_default_additional
+
+  proto_server:
+    build:
+      context: .
+      dockerfile: proto_server.Dockerfile
+    ports:
+      - "50051:50051"
+    networks:
+      - SOA-2_default_additional
+    depends_on:
+      - app
+  proto_client_1:
+    build:
+      context: .
+      dockerfile: proto_client.Dockerfile
+    environment:
+      GRPC_CLIENT_HOST: proto_client_1
+      GRPC_CLIENT_PORT: 50052
+      CLIENT_NAME: proto_client_1
+    depends_on:
+      - proto_server
+    ports:
+      - "50052:50052"
+    networks:
+      - SOA-2_default_additional
+  proto_client_2:
+    build:
+      context: .
+      dockerfile: proto_client.Dockerfile
+    environment:
+      GRPC_CLIENT_HOST: proto_client_2
+      GRPC_CLIENT_PORT: 50053
+      CLIENT_NAME: proto_client_2
+    depends_on:
+      - proto_server
+    ports:
+      - "50053:50053"
+    networks:
+      - SOA-2_default_additional
+  proto_client_3:
+    build:
+      context: .
+      dockerfile: proto_client.Dockerfile
+    environment:
+      GRPC_CLIENT_HOST: proto_client_3
+      GRPC_CLIENT_PORT: 50054
+      CLIENT_NAME: proto_client_3
+    depends_on:
+      - proto_server
+    ports:
+      - "50054:50054"
+    networks:
+      - SOA-2_default_additional
+  proto_client_4:
+    build:
+      context: .
+      dockerfile: proto_client.Dockerfile
+    environment:
+      GRPC_CLIENT_HOST: proto_client_4
+      GRPC_CLIENT_PORT: 50055
+      CLIENT_NAME: proto_client_4
+    depends_on:
+      - proto_server
+    ports:
+      - "50055:50055"
+    networks:
+      - SOA-2_default_additional

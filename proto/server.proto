@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+service Server {
+  rpc Register (RegisterRequest) returns (RegisterResponse) {}
+  rpc Leave (LeaveRequest) returns (google.protobuf.Empty) {}
+  rpc PerformAction (PerformActionRequest) returns (google.protobuf.Empty) {}
+}
+
+
+message RegisterRequest {
+  string host = 1;
+  int32 port = 2;
+  string name = 3;
+}
+
+message RegisterResponse {
+  string uuid = 1;
+}
+
+message LeaveRequest {
+  string uuid = 1;
+}
+
+message PerformActionRequest {
+  string uuid = 1;
+  string action = 2;
+  optional string target_name = 3;
+}

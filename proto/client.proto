@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+service Client {
+  rpc NotifyJoin (JoinNotification) returns (google.protobuf.Empty) {}
+  rpc NotifyLeave (LeaveNotification) returns (google.protobuf.Empty) {}
+  rpc NotifyAction (ActionNotification) returns (google.protobuf.Empty) {}
+  rpc SendRole (Role) returns (google.protobuf.Empty) {}
+  rpc SendAvailableActions (AvailableActions) returns (google.protobuf.Empty) {}
+  rpc Livez (LivezRequest) returns (LivezResponse) {}
+}
+
+message JoinNotification {
+  string player = 1;
+}
+
+message LeaveNotification {
+  string player = 1;
+}
+
+message ActionNotification {
+  string notification = 1;
+}
+
+message Role {
+  string role = 1;
+}
+
+message AvailableActions {
+  repeated string actions = 1;
+}
+
+message LivezRequest {
+}
+
+message LivezResponse {
+}

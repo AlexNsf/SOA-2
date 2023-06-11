@@ -1,0 +1,6 @@
+pydantic
+grpcio-tools
+reportlab
+flask
+python-status
+requests
